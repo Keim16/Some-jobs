@@ -1,0 +1,39 @@
+package com.nuos.letters.service;
+
+import com.nuos.letters.dao.LetterDAO;
+import com.nuos.letters.entity.Letter;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+@Stateless
+public class LetterService implements LetterDAO {
+    @PersistenceContext
+    private EntityManager em;
+    @Override
+    public void create(Letter letter) {
+        em.merge(letter);
+    }
+
+    @Override
+    public List<Letter> getAll() {
+        return em.createQuery("select l from Letter l", Letter.class).getResultList();
+    }
+
+    @Override
+    public void delete(Integer id) {
+        Letter letter = em.find(Letter.class,id);
+        em.remove(letter);
+    }
+
+    @Override
+    public void update(Letter letter) {
+        em.merge(letter);
+    }
+
+    @Override
+    public Letter find(Integer index) {
+        return em.find(Letter.class, index);
+    }
+}
