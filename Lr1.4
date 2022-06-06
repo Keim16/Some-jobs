@@ -1,0 +1,41 @@
+package com.nuos.letters.service;
+
+import com.nuos.letters.dao.PersonDAO;
+import com.nuos.letters.entity.Person;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.sql.SQLException;
+import java.util.List;
+
+@Stateless
+public class PersonService implements PersonDAO {
+    @PersistenceContext
+    private EntityManager em;
+    @Override
+    public void create(Person person){
+        em.persist(person);
+    }
+
+    @Override
+    public List<Person> getAll(){
+        return em.createQuery("select p from Person p", Person.class).getResultList();
+    }
+
+    @Override
+    public void delete(Integer id){
+        Person person = em.find(Person.class,id);
+        em.remove(person);
+    }
+
+    @Override
+    public void update(Person person){
+        em.merge(person);
+    }
+
+    @Override
+    public Person find(Integer index){
+        return em.find(Person.class, index);
+    }
+}
