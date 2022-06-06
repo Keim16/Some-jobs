@@ -1,0 +1,21 @@
+create table person
+(
+  id          int auto_increment primary key,
+  dateOfBirth date         null,
+  firstName   varchar(255) null,
+  lastName    varchar(255) null
+);
+
+create table letter
+(
+  id            int auto_increment primary key,
+  departureDate date         null,
+  text          varchar(255) null,
+  topic         varchar(255) null,
+  recipientId   int          null,
+  senderId      int          null,
+  constraint FK5ycbw98mycpl58t8y9soald2x
+  foreign key (senderId) references person (id),
+  constraint FKbuwjt1dn3pjseii4b1t3q601t
+  foreign key (recipientId) references person (id)
+);
