@@ -1,0 +1,29 @@
+package com.nuos.letters.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.Date;
+@Data
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+
+public class Letter {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "senderId")
+    private Person sender;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "recipientId")
+    private Person recipient;
+    private String topic;
+    private String text;
+    @Temporal(TemporalType.DATE)
+    private Date departureDate;
+
+}
