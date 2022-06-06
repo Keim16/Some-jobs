@@ -1,0 +1,22 @@
+package com.nuos.letters.entity;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.Date;
+
+@Data
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+public class Person {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String firstName;
+    private String lastName;
+    @Temporal(TemporalType.DATE)
+    private Date dateOfBirth;
+
+}
